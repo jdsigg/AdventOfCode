@@ -1,0 +1,11 @@
+{
+  "name": "adventofcode",
+  "version": "1.0.0",
+  "description": "John Sigg's repo of Advent of Code solutions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "John Sigg",
+  "license": "ISC"
+}
