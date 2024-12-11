@@ -1,4 +1,3 @@
-const { group } = require('node:console');
 const fs = require('node:fs');
 const grid = fs.readFileSync('./input.txt', 'utf-8').split("\n").map(line => line.split(""));
 
