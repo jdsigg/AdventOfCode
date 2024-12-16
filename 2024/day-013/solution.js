@@ -49,8 +49,8 @@ function check(a, b, v1, v2, res) {
 function solve(input, toAdd = '0') {
     let sum = BigInt(0);
     for(const [aButton, bButton, prize] of input) {
-        const [x1, y1] = parseLine(aButton, '');
-        const [x2, y2] = parseLine(bButton, '');
+        const [x1, y1] = parseLine(aButton, '0');
+        const [x2, y2] = parseLine(bButton, '0');
         const [xRes, yRes] = parseLine(prize, toAdd);
         const [aPresses, bPresses] = solveEquation(x1, y1, x2, y2, xRes, yRes);
         if (check(aPresses, bPresses, x1, x2, xRes) && (check(aPresses, bPresses, y1, y2, yRes))) {
