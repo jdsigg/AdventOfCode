@@ -8,6 +8,10 @@ class MinHeap {
         this.arr = [];
     }
 
+    size() {
+        return this.arr.length;
+    }
+
     /** Adds an element to the heap. */
     add(k) {
         const arr = this.arr;
@@ -32,13 +36,12 @@ class MinHeap {
         let res = arr[0];
         arr[0] = arr[arr.length - 1];
         arr.pop();
-        this.MinHeapify(0);
+        this._heapify(0);
         return res;
     }
 
-    // A recursive method to heapify a subtree with the root at given index
-    // This method assumes that the subtrees are already heapified
-    MinHeapify(i) {
+    /** Recursively heapify subtrees in the heap. */
+    _heapify(i) {
         const arr = this.arr;
         const n = arr.length;
         if (n === 1) {
@@ -55,7 +58,7 @@ class MinHeap {
         }
         if (smallest !== i) {
             [arr[i], arr[smallest]] = [arr[smallest], arr[i]]
-            this.MinHeapify(smallest);
+            this._heapify(smallest);
         }
     }
 
