@@ -1,5 +1,6 @@
+const minheap = require('../../common/structures/minheap');
 const fs = require('node:fs');
-const input = fs.readFileSync('./input.txt', 'utf-8').split("\n").map(line => line.split(''));
+const input = fs.readFileSync('./input2.txt', 'utf-8').split("\n").map(line => line.split(''));
 
 const DIRECTIONS = Object.freeze({
     NORTH: [-1, 0],
@@ -17,10 +18,6 @@ function turn(direction, num90DegreeTurns) {
     const keys = Object.keys(DIRECTIONS);
     const keyInd = keys.indexOf(direction);
     return keys[(keyInd + num90DegreeTurns) % keys.length];
-}
-
-function pointStr([x, y]) {
-    return `${x}|${y}`;
 }
 
 function keyToPoint(k) {
@@ -51,8 +48,6 @@ function dijkstras(input, start, end) {
      *   - Make curr an unvisited vertex with the lowest distance.
      */
 
-    // Without a priority queue, this is sorta slow, but it works fine.
-
     const distances = {};
     for (let i = 0; i < input.length; i++) {
         for (let j = 0; j < input[i].length; j++) {
@@ -64,6 +59,7 @@ function dijkstras(input, start, end) {
     }
     distances[start] = { distance: 0, direction: "EAST" };
 
+    const minHeap = new minheap.MinHeap();
     let curr = start.map(x => '' + x).join(',')
     const endP = end.map(x => '' + x).join(',')
     const visited = new Set();
@@ -84,20 +80,13 @@ function dijkstras(input, start, end) {
             if (neighborDistance.distance > d) {
                 neighborDistance.distance = d;
                 neighborDistance.direction = neighbor.d;
+                minHeap.add({ id: '' + neighbor.p, weight: neighborDistance.distance });
             }
         }
 
         // Mark this as visited and move on.
         visited.add(curr);
-        let next = undefined;
-        let minDistance = Number.MAX_SAFE_INTEGER;
-        for (const [k, v] of Object.entries(distances)) {
-            if (!visited.has(k) && minDistance > v.distance) {
-                next = k;
-                minDistance = v.distance;
-            }
-        }
-        curr = next;
+        curr = minHeap.pop().id;
     }
     return distances;
 }
@@ -108,3 +97,4 @@ const end = [1, input[1].length - 2];
 const distanceMap = dijkstras(input, start, end);
 const minDistance = distanceMap[end].distance;
 console.log("Part 1:", minDistance);
+
