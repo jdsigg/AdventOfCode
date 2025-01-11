@@ -61,3 +61,15 @@ function part1(initialState, network) {
 }
 
 console.log("Part 1:", part1(initialState, network));
+
+// See output2.svg: We need to find 8 nodes that are out of place.
+// z21 - Z nodes XOR against a carry (AND) and the XOR of their respective x / y bits.
+// z05 - Z nodes XOR against a carry (AND) and the XOR of their respective x / y bits.
+// frn - in the way of the carry path to bit 7 (z06).
+// z39 - Z nodes XOR against a carry (AND) and the XOR of their respective x / y bits.
+// wtt - in the way of the carry path to bit 41 (z40).
+// gmq - in the way of the carry path to bit 23 (z22).
+// wnf - pjp needs this to be and XOR to correctly carry to smg.
+// vtj - smg needs to depend on OR'ing the carry (pjp -> rsk) and AND of x16 / y16.
+
+console.log("Part 2:", ["z21","z05", "frn", "z39", "wtt", "gmq", "wnf", "vtj"].sort().join(','));
