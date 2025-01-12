@@ -1,31 +1,51 @@
 const fs = require('node:fs');
 const input = fs.readFileSync('./input.txt', 'utf-8').split("\n").map(BigInt);
 
-function prune(a) {
-    return a % 16777216n;
-}
-
-function mix(a, b) {
-    return a ^ b;
-}
-
 function part1(input) {
     let total = 0n;
-    for(const n of input) {
+    for (const n of input) {
         let curr = n;
-        for(let i = 0; i < 2000; i++) {
-            let r1 = curr * 64n
-            curr = prune(mix(curr, r1));
-
-            let r2 = curr / 32n;
-            curr = prune(mix(curr, r2));
-
-            let r3 = curr * 2048n;
-            curr = prune(mix(curr, r3));
+        for (let i = 0; i < 2000; i++) {
+            curr = (curr ^ (curr * 64n)) % 16777216n;
+            curr = (curr ^ (curr / 32n)) % 16777216n;
+            curr = (curr ^ (curr * 2048n)) % 16777216n;
         }
         total += curr;
     }
     return total
 }
 
+function part2(input) {
+    const sequenceToPrice = {};
+    for (const n of input) {
+        let curr = n;
+        let lastPrice = curr % 10n;
+        const differences = [];
+        const seen = new Set();
+        for (let i = 0; i < 2000; i++) {
+            curr = (curr ^ (curr * 64n)) % 16777216n;
+            curr = (curr ^ (curr / 32n)) % 16777216n;
+            curr = (curr ^ (curr * 2048n)) % 16777216n;
+            const currPrice = curr % 10n
+            differences.push(currPrice - lastPrice);
+            lastPrice = currPrice;
+            if (i >= 3) {
+                const sequence = differences.slice(i - 3, i + 1).join(',');
+                if (seen.has(sequence)) {
+                    continue;
+                }
+                seen.add(sequence);
+
+                if (!(sequence in sequenceToPrice)) {
+                    sequenceToPrice[sequence] = []
+                }
+                sequenceToPrice[sequence].push(currPrice);
+            }
+        }
+    }
+
+    return Math.max(...Object.values(sequenceToPrice).map(prices => Number(prices.reduce((a, b) => a + b))));
+}
+
 console.log("Part 1:", part1(input));
+console.log("Part 2:", part2(input));
