@@ -45,13 +45,13 @@ class Grid {
      */
     static getManhattanNeighbors(point, distance) {
         const neighbors = new Set();
-        for(let i = 1; i <= distance; i++) {
+        for (let i = 1; i <= distance; i++) {
             const north = point.add(new Point(-i, 0));
             const south = point.add(new Point(i, 0));
             const east = point.add(new Point(0, i));
             const west = point.add(new Point(0, -i));
 
-            for(let j = 1; j <= i; j++) {
+            for (let j = 1; j <= i; j++) {
                 // Walk the positive slope from south / west to east / north.
                 neighbors.add(south.add(new Point(-j, j)).encode());
                 neighbors.add(west.add(new Point(-j, j)).encode());
@@ -70,11 +70,16 @@ class Grid {
 
     static translate(point, direction) {
         const [dX, dY] = Grid.DIRECTIONS[direction];
-        return point.add(new Point(dX, dY));         
+        return point.add(new Point(dX, dY));
     }
 
+    // debt
     static isValid(point, grid) {
         return point.x > 0 && point.x < grid.length && point.y > 0 && point.y < grid[point.x].length
+    }
+
+    static isValidV2(point, grid) {
+        return point.x >= 0 && point.x < grid.length && point.y >= 0 && point.y < grid[point.x].length
     }
 }
 
