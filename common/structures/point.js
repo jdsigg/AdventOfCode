@@ -39,6 +39,20 @@ class Grid {
         ]
     }
 
+    static allNeighbors(point) {
+        const [n, e, s, w] = Grid.neighbors(point);
+        return [
+            n,
+            Grid.translate(n, "EAST"),
+            e,
+            Grid.translate(e, "SOUTH"),
+            s,
+            Grid.translate(s, "WEST"),
+            w,
+            Grid.translate(w, "NORTH")
+        ];
+    }
+
     /** Create an array of points that are a fixed Manhattan distance from another point.
      * 
      * Include all distances from [1 - distance].
