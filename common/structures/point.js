@@ -6,7 +6,14 @@ class Point {
     constructor(x, y) {
         this.x = Number(x);
         this.y = Number(y);
+        // this.id = ''
     }
+
+    // static withId(x, y, id) {
+        // const p = new Point(x, y);
+        // p.id = id;
+        // return p;
+    // }
 
     encode() {
         return `${this.x},${this.y}`;
@@ -51,6 +58,10 @@ class Grid {
             w,
             Grid.translate(w, "NORTH")
         ];
+    }
+
+    static manhattanDistance(p1, p2) {
+        return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y);
     }
 
     /** Create an array of points that are a fixed Manhattan distance from another point.
