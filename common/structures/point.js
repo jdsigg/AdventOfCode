@@ -10,9 +10,9 @@ class Point {
     }
 
     // static withId(x, y, id) {
-        // const p = new Point(x, y);
-        // p.id = id;
-        // return p;
+    // const p = new Point(x, y);
+    // p.id = id;
+    // return p;
     // }
 
     encode() {
@@ -105,6 +105,53 @@ class Grid {
 
     static isValidV2(point, grid) {
         return point.x >= 0 && point.x < grid.length && point.y >= 0 && point.y < grid[point.x].length
+    }
+
+    /**
+     * Transpose an MxN array.
+     * 
+     * Transposition is swapping the each (i, j) coordinate to (j, i).
+     * 
+     * Examples:
+     * [[1, 2, 3]]
+     * becomes
+     * [
+     *  [1],
+     *  [2],
+     *  [3]
+     * ]
+     * 
+     * [
+     *  [1, 2],
+     *  [3, 4]
+     * ]
+     * becomes
+     * [
+     *  [2, 4],
+     *  [1, 3]
+     * ]
+     * 
+     * Assumes that every row in the grid has the same number of elements.
+     */
+    static transposeMatrix(matrix) {
+        if (!matrix || matrix.length === 0 || matrix[0].length === 0) {
+            return [];
+        }
+
+        const numRows = matrix.length;
+        const numCols = matrix[0].length;
+
+        // Create a new array with dimensions swapped (m x n)
+        const transposedMatrix = Array(numCols).fill(null).map(() => Array(numRows).fill(null));
+
+        // Populate the transposed matrix
+        for (let i = 0; i < numRows; i++) {
+            for (let j = 0; j < numCols; j++) {
+                transposedMatrix[j][i] = matrix[i][j];
+            }
+        }
+
+        return transposedMatrix;
     }
 }
 
