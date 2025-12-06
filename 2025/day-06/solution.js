@@ -69,7 +69,7 @@ function extractProblems(input) {
  * Means 3 * 45
  * 
  * For part 2, we want the transposition of each problem.
- * The example above means 35 * 4.
+ * The example above means 4 * 35.
  * 
  * Evaluate each problem, optionally transposing at the caller's request.
  */
