@@ -30,7 +30,12 @@ class Point {
 }
 
 class Grid {
-    static DIRECTIONS = Object.freeze({
+    static NORTH = "NORTH";
+    static EAST = "EAST";
+    static SOUTH = "SOUTH";
+    static WEST = "WEST";
+
+    static DIRECTIONS_TO_TRANSLATION_VECTOR = Object.freeze({
         NORTH: [-1, 0],
         EAST: [0, 1],
         SOUTH: [1, 0],
@@ -94,7 +99,7 @@ class Grid {
     }
 
     static translate(point, direction) {
-        const [dX, dY] = Grid.DIRECTIONS[direction];
+        const [dX, dY] = Grid.DIRECTIONS_TO_TRANSLATION_VECTOR[direction];
         return point.add(new Point(dX, dY));
     }
 
