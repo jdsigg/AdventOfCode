@@ -40,7 +40,7 @@ function part1(pairs, numNodes) {
 }
 
 /**
- * Continuously merges edges defined by our input pairs.
+ * Continuously merges input edges.
  * 
  * Stops when a single graph remains.
  * 
