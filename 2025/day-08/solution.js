@@ -9,7 +9,7 @@ const input = fs.readFileSync('./input.txt', 'utf-8')
 /**
  * Returns pairs of junctions.
  * 
- * Pairs are returned in descending order by the distance between two junctions.
+ * Pairs are returned in ascending order by the distance between two junctions.
  */
 function getJunctionPairs(input) {
     const pairs = [];
