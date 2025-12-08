@@ -3,9 +3,10 @@
  */
 
 class Point {
-    constructor(x, y) {
+    constructor(x, y, z = 0) {
         this.x = Number(x);
         this.y = Number(y);
+        this.z = Number(z);
         // this.id = ''
     }
 
@@ -155,6 +156,14 @@ class Grid {
         }
 
         return transposedMatrix;
+    }
+
+    static straightLineDistance(p1, p2) {
+        return Math.abs(
+            Math.pow((p2.x - p1.x), 2) +
+            Math.pow((p2.y - p1.y), 2) +
+            Math.pow((p2.z - p1.z), 2)
+        );
     }
 }
 
